@@ -3,14 +3,12 @@
         <h1 data-title>YoonJ HouseHold Ledge</h1>
         <div data-wrap>
             <div class="btnArea">
-                <el-button  icon="el-icon-d-arrow-left" circle size="mini"></el-button>
-                <el-button  icon="el-icon-arrow-left" circle size="mini"></el-button>
+                <el-button  icon="el-icon-arrow-left" @click="prevYear" circle size="mini"></el-button>
                 <span data-year><strong>{{dateCtx.format('YYYY')}}</strong></span>
-                <el-button  icon="el-icon-arrow-right" circle size="mini"></el-button>
-                <el-button  icon="el-icon-d-arrow-right" circle size="mini"></el-button>
+                <el-button  icon="el-icon-arrow-right" @click="nextYear" circle size="mini"></el-button>
             </div>
             <ul data-month>
-                <month-item  v-for="(n,i) in monthString" :key="i" :val="n"></month-item>
+                <month-item  v-for="(item,i) in monthString" :key="i" :item="item" :currentYear="dateCtx.format('YYYY')"></month-item>
             </ul>
         </div>
     </div>
@@ -19,7 +17,9 @@
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator';
     import MonthItem from '@/components/MonthItem.vue'; // @ is an alias to /src
+    import {imgSet} from '@/assets/imgSet';
     import moment from 'moment';
+
 
     @Component({
         components: {
@@ -29,17 +29,31 @@
     export default class Home extends Vue {
         public dateCtx : any = moment();
 
-        get monthString() : Array<string> {
+        get monthString() : Array<object> {
             let str : any;
-            const monthArray : Array<string> = [];
+            const monthArray : Array<object> = [];
 
-            for (let i=1; i<13; i++) {
-                if (i < 10) str = `0${i}`;
-                else str = i;
-                monthArray.push(str.toString())
+            for (let i=0; i<12; i++) {
+                if (i < 10) {
+                    let incre = i+1;
+                    incre < 10 ? str = `0${incre}` : str = `${incre}`
+                }
+                else str = i+1;
+                monthArray.push({
+                    label : str.toString(),
+                    img : imgSet[i]
+                })
             }
             return monthArray
         }
+        prevYear() {
+
+        }
+
+        nextYear() {
+
+        }
+
 
     }
 </script>
@@ -50,7 +64,7 @@
     }
     [data-wrap]{
         [data-year] {
-            font-size:40px;padding:0 20px;color:#666;
+            font-size:40px;padding:0 20px;color:#333;
         }
         [data-month] {
             display: flex;flex-wrap: wrap;padding:40px 0;justify-content: center;
