@@ -1,7 +1,7 @@
 <template>
     <li>
-        
-        <input  :class="{activeEnabled:bindText}" @input="activeTrigger($event.target.value)" type="text" >
+
+        <input  :class="{activeEnabled:bindText}" v-model="bindString" type="text" >
     </li>
 </template>
 
@@ -15,7 +15,14 @@
 
         public isActive : boolean = this.activeParent
         public itemData : any = this.testData;
-
+        get bindString() {
+            return this.itemData.label
+        }
+        set bindString(v) {
+            this.isActive = true
+            this.$emit('emitActive',true)
+            this.itemData.label = v
+        }
         get bindText() {
             console.log(this.activeParent)
             if(!this.activeParent) this.isActive = false;
@@ -23,9 +30,7 @@
             return this.isActive
         }
         activeTrigger(v : any) {
-            this.isActive = true
-            this.$emit('emitActive',true)
-            this.itemData.label = v
+
 
         }
 
