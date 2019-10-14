@@ -1,21 +1,14 @@
 <template>
     <div class="monthPage">
         <button type="button" @click="go">ok</button>
-        <ul>
-            <test :testData="item" @emitActive="onActive" :activeParent="activeParent" v-for="(item ,i) in testData" :key="i"></test>
-        </ul>
+
     </div>
 </template>
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator';
-    import Test from '@/components/Test.vue';
 
-    @Component({
-        components : {
-            Test
-        }
-    })
+    @Component
     export default class MonthPage extends Vue {
         public activeParent : any = false;
         public testData : any = [

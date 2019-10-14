@@ -4,6 +4,7 @@
                 data-link
                 :style="{background:`url(${item.img.uri}) no-repeat`,backgroundSize:'cover'}"
                 :to="{name:'MonthPage',params:{year:currentYear,month:item.label}}"><span data-label>{{item.label}}</span></router-link>
+        {{daysInMonth}}
     </li>
 </template>
 
@@ -14,6 +15,8 @@
     export default class MonthItem extends Vue {
         @Prop(Object)  item! : any;
         @Prop(String)  currentYear! : string;
+        @Prop(Number)  daysInMonth! : number;
+        @Prop(Object)  dateCtx! : any;
     }
 </script>
 

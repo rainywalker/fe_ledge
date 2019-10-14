@@ -13,6 +13,6 @@
     }
     .fade-enter, .fade-leave-active {
         opacity: 0;
-        transform: translateX(-5%);
+        transform: scale(1.5);
     }
 </style>

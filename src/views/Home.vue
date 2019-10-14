@@ -4,11 +4,11 @@
         <div data-wrap>
             <div class="btnArea">
                 <el-button  icon="el-icon-arrow-left" @click="prevYear" circle size="mini"></el-button>
-                <span data-year><strong>{{dateCtx.format('YYYY')}}</strong></span>
+                <span data-year><strong>{{year}}</strong></span>
                 <el-button  icon="el-icon-arrow-right" @click="nextYear" circle size="mini"></el-button>
             </div>
             <ul data-month>
-                <month-item  v-for="(item,i) in monthString" :key="i" :item="item" :currentYear="dateCtx.format('YYYY')"></month-item>
+                <month-item  v-for="(item,i) in monthString" :key="i" :item="item" :dateCtx="dateCtx" :currentYear="year"></month-item>
             </ul>
         </div>
     </div>
@@ -46,13 +46,26 @@
             }
             return monthArray
         }
+        get currentDate() {
+            return this.dateCtx.get('date')
+        }
+        get year() {
+            return this.dateCtx.format('Y')
+        }
+        get month() {
+            return this.dateCtx.format('MMMM')
+        }
+        get daysInMonth() {
+            return this.dateCtx.daysInMonth()
+        }
         prevYear() {
-
+            this.dateCtx = moment(this.dateCtx).subtract(1, 'y');
         }
 
         nextYear() {
-
+            this.dateCtx = moment(this.dateCtx).add(1, 'y');
         }
+
 
 
     }
